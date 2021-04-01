@@ -17,7 +17,7 @@ stock_price_list = stockPriceCrawler.getStockPrice(company_list)
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="kk2hg8039!#"
+    password="1234"
 )
 
 mycursor = mydb.cursor()
