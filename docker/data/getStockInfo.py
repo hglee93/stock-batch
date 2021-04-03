@@ -18,18 +18,12 @@ profiler = Profiler()
 ##############################################################################################
 # 1. Get company code
 ##############################################################################################
-profiler.start()
 company_list = companyCrawler.getCompanyCode()
-profiler.end()
-print("Getting companycode was executed for %0.2f seconds" % (profiler.getResult() / 1000))
 
 ##############################################################################################
 # 2. Get stock prices
 ##############################################################################################
-profiler.start()
-stock_price_list = stockPriceCrawler.getStockPrice(company_list)
-profiler.end()
-print("Getting StockPrice was executed for %0.2f seconds" % (profiler.getResult() / 1000))
+stock_price_list = stockPriceCrawler.getStockPrice_Multithread(company_list, 16)
 
 ##############################################################################################
 # 3. Store stock prices into Database
