@@ -3,6 +3,8 @@ import ssl
 import json
 from urllib.request import urlopen
 from urllib import request
+#from datetime import datetime
+import time
 
 class CompanyCodeCrawler:
     def __init__(self):
@@ -37,4 +39,17 @@ class StockPriceCrawler:
             stock_object_list.append(stock_object)
 
         return stock_object_list
+
+class Profiler:
+
+    def start(self):
+        #self.startTime = datetime.timestamp(datetime.now())
+        self.startTime = int(round(time.time() * 1000))
+    
+    def end(self):
+        #self.endTime = datetime.timestamp(datetime.now())
+        self.endTime = int(round(time.time() * 1000))
+    
+    def getResult(self):
+        return self.endTime - self.startTime
 
