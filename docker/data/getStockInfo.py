@@ -23,7 +23,10 @@ company_list = companyCrawler.getCompanyCode()
 ##############################################################################################
 # 2. Get stock prices
 ##############################################################################################
+profiler.start()
 stock_price_list = stockPriceCrawler.getStockPrice_Multithread(company_list, 16)
+profiler.end()
+print("%0.2f seconds" % (profiler.getResult() / 1000))
 
 ##############################################################################################
 # 3. Store stock prices into Database
