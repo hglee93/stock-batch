@@ -9,6 +9,8 @@ from stocklib import StockPriceCrawler
 from stocklib import Profiler
 
 from stockdaolib import StockDao
+import json
+import os
 
 companyCrawler = CompanyCodeCrawler()
 stockPriceCrawler = StockPriceCrawler()
@@ -26,15 +28,23 @@ company_list = companyCrawler.getCompanyCode()
 profiler.start()
 stock_price_list = stockPriceCrawler.getStockPrice_Multithread(company_list, 16)
 profiler.end()
-print("%0.2f seconds" % (profiler.getResult() / 1000))
 
 ##############################################################################################
 # 3. Store stock prices into Database
 ##############################################################################################
-stockdao = StockDao("localhost", "root", "1234")
-stockdao.insertStockPriceListBatch(stock_price_list)
+config_path = os.path.dirname(__file__) + '/config.json'
 
-print("Completed!")
+#print(config_path)
+
+with open(config_path) as f:
+    config = json.load(f)
+
+HOST = config['DATASOURCE']['HOST']
+USERNAME = config['DATASOURCE']['USERNAME']
+PASSWORD = config['DATASOURCE']['PASSWORD']
+
+stockdao = StockDao(HOST, USERNAME, PASSWORD)
+stockdao.insertStockPriceListBatch(stock_price_list)
 
 
 
